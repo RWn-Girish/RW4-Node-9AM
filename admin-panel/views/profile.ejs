@@ -1,0 +1,35 @@
+<%- include('header') %>
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+
+               <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="<%= user.profileImage %>" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Name: <%= user.firstname %> <%= user.lastname %></h5>
+                        <p class="card-text">Email: <%= user.email %></p>
+                        <p class="card-text">Gender: <%= user.gender %></p>
+                        <p class="card-text">MobileNo: <%= user.mobileNo %></p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                   
+            </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+               
+        </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+<%- include('footer') %>

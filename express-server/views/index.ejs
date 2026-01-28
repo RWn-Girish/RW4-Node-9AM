@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <h2>Add Student Details</h2>
+        <form action="/add-student" method="post" enctype="">
+            <table border="1" cellpadding="5">
+                <tr>
+                    <td>Id:</td>
+                    <td><input type="text" name="id" /></td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" name="name" /></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" name="email" /></td>
+                </tr>
+                <tr>
+                    <td>Course:</td>
+                    <td><input type="text" name="course" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Add Student" /></td>
+                </tr>
+            </table>
+        </form>
+        <hr/>
+        <h2>Student Details</h2>
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Course</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% students.forEach((stu, i) => { %>
+                        <tr>
+                            <td><%= stu.id %></td>
+                            <td><%= stu.name %></td>
+                            <td><%= stu.email %></td>
+                            <td><%= stu.course %></td>
+                            <td><a href="/edit-student/<%= stu.id %>">Edit</a></td>
+                            <td><a href="/delete-student/<%= stu.id %>">Delete</a></td>
+                        </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </center>
+</body>
+</html>
