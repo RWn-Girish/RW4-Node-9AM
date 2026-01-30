@@ -17,8 +17,9 @@ exports.loginPage = async (req, res) => {
 }
 exports.logOutAdmin = async (req, res) => {
     try {
-        res.clearCookie('user');
-        return res.redirect("/");
+        req.session.destroy(() => {
+            return res.redirect("/");
+        })
     } catch (error) {
         console.log(error);
         return res.redirect("/dashboard");
@@ -26,7 +27,7 @@ exports.logOutAdmin = async (req, res) => {
 }
 exports.dashboard = async (req, res) => {
     try {
-        console.log("User ===> ", req.user);
+        // console.log("User ===> ", req.user);
         return res.render("dashboard");
     } catch (error) {
         console.log(error);
@@ -53,29 +54,25 @@ exports.changePasswordPage = async (req, res) => {
 }
 exports.changePassword = async (req, res) => {
     try {
-        if(req.cookies && req.cookies.user && req.cookies.user._id != undefined)
-           {
-            const user = req.cookies.user;
-             const {oldPass, newPassword, confirmPassword} = req.body;
-             let matchpass = await bcrypt.compare(oldPass, user.password);
-             if(!matchpass){
-                return res.redirect("/change-password");
-             }
+            const user = req.user;
+            const {oldPass, newPassword, confirmPassword} = req.body;
+            let matchpass = await bcrypt.compare(oldPass, user.password);
+            if(!matchpass){
+            return res.redirect("/change-password");
+            }
 
-             if(oldPass == newPassword){
-                return res.redirect("/change-password");
-             }
-             if(newPassword != confirmPassword){
-                return res.redirect("/change-password");
-             }
+            if(oldPass == newPassword){
+            return res.redirect("/change-password");
+            }
+            if(newPassword != confirmPassword){
+            req.flash('error', 'New password and confirm password is not matched')
+            return res.redirect("/change-password");
+            }
 
-             const hashpassword = await bcrypt.hash(newPassword, 10);
-             await Admin.findByIdAndUpdate(user._id, {password: hashpassword}, {new: true});
-             return res.redirect("/dashboard");
-           }
-
-        else
-            return res.redirect("/");
+            const hashpassword = await bcrypt.hash(newPassword, 10);
+            await Admin.findByIdAndUpdate(user._id, {password: hashpassword}, {new: true});
+            req.flash('success', 'Change password Success');
+            return res.redirect("/dashboard");
     } catch (error) {
         console.log(error);
         return res.redirect("/dashboard");
@@ -84,6 +81,7 @@ exports.changePassword = async (req, res) => {
 
 exports.loginuser = async (req, res) => {
     try {
+        req.flash('success', 'Login Success');
         return res.redirect("/dashboard");
     } catch (error) {
         console.log(error);
@@ -95,7 +93,6 @@ exports.loginuser = async (req, res) => {
 
 exports.forgotPasswordPage = async (req, res) => {
     try {
-        
         return res.render("resetpass/forgotpassword");
     } catch (error) {
         console.log(error);

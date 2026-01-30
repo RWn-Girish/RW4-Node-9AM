@@ -4,6 +4,8 @@ const cookieparser = require('cookie-parser');
 const passport = require('passport');
 const localStertegy = require('./middleware/localStretergy');
 const session = require('express-session');
+const flash = require('connect-flash');
+const flashMessage = require('./middleware/flashMessage');
 
 const app = express();
 const port = 9080;
@@ -14,6 +16,7 @@ app.use(express.urlencoded());
 app.use(express.static('public'));
 app.use("/uploads",express.static('uploads'));
 app.use(cookieparser());
+app.use(flash());
 
 app.use(session({
     name: 'node-9AM',
@@ -27,6 +30,8 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.setAuthenticated);
+app.use(flashMessage);
 
 
 // routes

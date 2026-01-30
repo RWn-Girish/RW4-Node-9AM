@@ -43,4 +43,10 @@ passport.checkAuthenticated = (req, res, next) => {
     }
 }
 
+passport.setAuthenticated = (req, res, next) => {
+  if(req.isAuthenticated()){
+      res.locals.user = req.user;
+  }
+  next();
+}
 module.exports = passport;
