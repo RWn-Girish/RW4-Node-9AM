@@ -12,7 +12,7 @@ exports.loginPage = async (req, res) => {
             return res.render("login");
     } catch (error) {
         console.log(error);
-        return res.redirect("/dashboard");
+        return res.redirect("/");
     }
 }
 exports.logOutAdmin = async (req, res) => {

@@ -12,11 +12,11 @@ passport.use(
 
       let admin = await Admin.findOne({ email: email });
       if (!admin) {
-        cb(null, false);
+        return cb(null, false);
       }
       let matchPassword = await bcrypt.compare(password, admin.password);
       if (!matchPassword) {
-        cb(null, false);
+        return cb(null, false);
       }
       cb(null, admin);
     },
