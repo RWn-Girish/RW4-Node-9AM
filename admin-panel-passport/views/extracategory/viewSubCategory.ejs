@@ -1,0 +1,91 @@
+<%- include("../header") %>
+
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title">View All Sub Categories</h4>
+                        <div class="ml-auto text-right">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div>
+                                    <form action="">
+                                        <input type="text" name="search" placeholder="Enter Search" />
+                                        <button type="submit">Search</button>
+                                    </form>
+                                </div>
+                            <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">Category Name</th>
+                                      <th scope="col">Image</th>
+                                      <th scope="col">SubCategory Name</th>
+                                      <th scope="col" >Actions</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <% subCategories.forEach((subCat, i) => { %>
+                                        <tr>
+                                            <td><%= i + 1 %></td>
+                                            <td><%= subCat.categoryId.category %></td>
+                                            
+                                            <td>
+                                                <img src="<%= subCat.categoryId.categoryImage %>" alt="categoryImage"  width="80"  height="80"/>
+                                            </td>
+                                            <td><%= subCat.subcategory %></td>
+                                            <td>
+                                                <a href="/category/edit-category/<%= subCat.id %>" class="btn btn-warning">Edit</a>
+                                                <a href="/category/delete-category/<%= subCat.id %>" class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                    
+                                  </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+<%- include("../footer") %>

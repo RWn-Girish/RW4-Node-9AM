@@ -9,3 +9,10 @@ const subCategorySchema = mongoose.Schema({
 });
 
 module.exports = mongoose.model('SubCategory', subCategorySchema);
+
+
+/*
+    title, price, image, description, category, subcategory, extracategory, brand
+
+
+*/

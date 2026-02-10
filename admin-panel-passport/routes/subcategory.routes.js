@@ -1,10 +1,10 @@
 const express = require('express');
-const { addSubCategoryPage, addSubCategory } = require('../controller/subcategory.controller');
+const { addSubCategoryPage, addSubCategory, viewAllCategories } = require('../controller/subcategory.controller');
 
 const routes = express.Router();
 
 routes.get("/add-subcategory", addSubCategoryPage);
 routes.post("/add-subcategory",  addSubCategory);
-// routes.get("/view-categories", viewAllCategories);
+routes.get("/view-subcategories", viewAllCategories);
 
 module.exports = routes;
