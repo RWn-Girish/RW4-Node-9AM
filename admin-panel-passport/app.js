@@ -34,8 +34,10 @@ app.use(passport.setAuthenticated);
 app.use(flashMessage);
 
 
-// routes
+// admin routes
 app.use("/", require('./routes/index.routes'));
+// website routes
+app.use("/web", require('./routes/web.routes'));
 
 
 app.listen(port, ()=> {
