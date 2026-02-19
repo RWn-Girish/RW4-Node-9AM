@@ -10,6 +10,7 @@ dbConnect();
 //middleware
 app.use(express.urlencoded());
 app.use(express.json());
+app.use("/uploads", express.static('src/uploads'));
 
 
 //routes

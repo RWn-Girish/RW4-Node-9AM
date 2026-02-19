@@ -1,9 +1,15 @@
 const express = require('express');
-const { addUser } = require('../controller/auth.controller');
+const { registerUser, getAllUser, loginUser } = require('../controller/auth.controller');
+const { uploadImage } = require('../middlware/uploadImage');
 
 const routes = express.Router();
 
-routes.post("/add-user", addUser);
+routes.post("/register", uploadImage.single('profileImage'), registerUser);
+routes.post("/login", loginUser);
+routes.get("/get-users", getAllUser);
 
 module.exports = routes;
 
+
+
+// authentication => JWT
