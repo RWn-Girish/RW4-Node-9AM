@@ -7,6 +7,10 @@ const userSchema = mongoose.Schema({
     password: String,
     mobileNo: String,
     profileImage: String,
+    isDelete: {
+        type: Boolean,
+        default: false
+    }
 }, {
     versionKey: false,
     timestamps: true

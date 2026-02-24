@@ -5,9 +5,10 @@ const jwt = require('jsonwebtoken');
 exports.registerUser = async (req, res) => {
     try {
         let user = await User.findOne({email: req.body.email});
-        if(user){
+        if(user && user.isDelete == false){
             return res.json({message: 'User already exist'})
         }
+        
         let imagepath = "";
         if(req.file){
             imagepath = `/uploads/${req.file.filename}`;
@@ -27,7 +28,7 @@ exports.registerUser = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
     try {
-        let user = await User.findOne({email: req.body.email})
+        let user = await User.findOne({email: req.body.email, isDelete: false})
         if(!user){
             return res.status(404).json({message: 'User not found'});
         }
@@ -36,7 +37,7 @@ exports.loginUser = async (req, res) => {
         if(!match){
             return res.json({message: 'Email or Password is incorrect'});
         }
-        let token = jwt.sign({ userId: user._id}, 'developement')
+        let token = jwt.sign({ userId: user._id}, process.env.JWT_SECRET)
         return res.json({message: 'Login Success', status: 200, token})
 
     } catch (error) {
@@ -47,8 +48,20 @@ exports.loginUser = async (req, res) => {
 
 exports.getAllUser = async (req, res) => {
     try {
-        let users = await User.find();
+        let users = await User.find({isDelete: false});
         return res.json({message: 'Fetch All Users', users});
+    } catch (error) {
+        console.log(error);
+        return res.json({message: 'Server error'})
+    }
+}
+
+exports.deleteUser = async (req, res) => {
+    try {
+
+        let user = await User.findByIdAndUpdate(req.params.id, {isDelete: true}, {new: true});
+        
+        return res.json({message: 'Delete user Details', user: user});
     } catch (error) {
         console.log(error);
         return res.json({message: 'Server error'})
